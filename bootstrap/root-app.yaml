@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/context-alarm/context-alarm-gitops
-    targetRevision: main
+    targetRevision: master
     path: cluster
   destination:
     server: https://kubernetes.default.svc
