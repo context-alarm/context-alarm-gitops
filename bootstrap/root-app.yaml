@@ -9,6 +9,8 @@ spec:
     repoURL: https://github.com/context-alarm/context-alarm-gitops
     targetRevision: master
     path: cluster
+    directory:
+      recurse: true
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
@@ -16,4 +18,3 @@ spec:
     automated:
       prune: true
       selfHeal: true
-
