@@ -23,4 +23,4 @@ spec:
             - secretRef:
                 name: api-secret
           ports:
-            - containerPort: 8080
+            - containerPort: 9090
