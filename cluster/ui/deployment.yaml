@@ -22,4 +22,4 @@ spec:
           image: ghcr.io/context-alarm/context-alarm-front-end:aa6eed2cc12124935bec34de1c972d2bb2d0be8a
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 3000
+            - containerPort: 80
