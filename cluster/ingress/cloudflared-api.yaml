@@ -19,9 +19,9 @@ spec:
           args:
             - tunnel
             - --no-autoupdate
+            - --url=http://api.context-alarm.svc.cluster.local:80
             - run
             - context-alarm-api
-            - --url=http://api.context-alarm.svc.cluster.local:80
           volumeMounts:
             - name: tunnel-cred
               mountPath: /etc/cloudflared
