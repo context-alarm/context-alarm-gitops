@@ -10,6 +10,11 @@ GitOps repo for Context Alarm on k3s using Argo CD + SealedSecrets.
   - **Service**: `cluster/api/service.yaml` (Service port 80 → container port 9090)
   - **Env/Config**: loaded from Kubernetes Secret `api-secret`
   - **Image**: `ghcr.io/context-alarm/context-alarm-backend:<tag>`
+- **Checker Worker**
+  - **Deployment**: `cluster/checkerApi/deployment.yaml`
+  - **Type**: internal background worker (no Service/Ingress)
+  - **Env/Config**: loaded from Kubernetes Secret `api-secret`
+  - **Image**: `ghcr.io/context-alarm/context-alarm-checker:<tag>`
 - **Secrets**
   - **App Secret**: `cluster/api/sealed-api-secret.yaml` (Bitnami SealedSecret → creates/updates `Secret/api-secret`)
 - **Cloudflare Tunnel (in-cluster)**
@@ -127,7 +132,8 @@ curl -i https://api.contextalarm.com/v1/stripe/pricing
 ### Follow-ups (do later)
 
 1. **Automate image updates (best-practice GitOps)**
-   - CI should push an immutable image tag (e.g. git SHA) and update `cluster/api/deployment.yaml` `image:` tag in this repo.
+  - API CI should push an immutable image tag (e.g. git SHA) and update `cluster/api/deployment.yaml` `image:` tag in this repo.
+  - Checker CI should set `GITOPS_MANIFEST_PATH=cluster/checkerApi/deployment.yaml` and update that manifest `image:` tag.
 2. **Secret portability**
    - `ghcr-cred` and `cloudflared-tunnel-cred` are created manually on the cluster right now.
    - Later: move them to SealedSecrets or an external secret manager for easier cluster rebuilds.

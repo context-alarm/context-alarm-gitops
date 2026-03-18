@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: checker-api
+  namespace: context-alarm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: checker-api
+  template:
+    metadata:
+      labels:
+        app: checker-api
+      annotations:
+        context-alarm.dev/dummy-rollout: "2026-03-18T00:00:00Z"
+    spec:
+      imagePullSecrets:
+        - name: ghcr-cred
+      containers:
+        - name: checker-api
+          image: ghcr.io/context-alarm/context-alarm-checker:latest
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - secretRef:
+                name: api-secret
