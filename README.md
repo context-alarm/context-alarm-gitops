@@ -23,8 +23,9 @@ GitOps repo for Context Alarm on k3s using Argo CD + SealedSecrets.
   - **App Secret**: `cluster/api/sealed-api-secret.yaml` (Bitnami SealedSecret → creates/updates `Secret/api-secret`)
 - **Cloudflare Tunnel (in-cluster)**
   - **Deployment**: `cluster/ingress/cloudflared-api.yaml`
-  - **Deployment**: `cluster/ingress/cloudflared-ui.yaml`
+  - **ConfigMap**: `cluster/ingress/cloudflared-config.yaml`
   - **Public URL**: `https://api.contextalarm.com`
+  - **Public URL**: `https://contextalarm.com`
 
 ### Argo CD
 
@@ -78,7 +79,7 @@ The API Deployment references it via `imagePullSecrets`.
 
 ### Cloudflare Tunnel (in-cluster)
 
-Goal: expose the API Service through Cloudflare at `api.contextalarm.com`.
+Goal: expose both API and UI through one tunnel.
 
 Cloudflare side:
 
@@ -103,6 +104,7 @@ kubectl -n context-alarm create secret generic cloudflared-tunnel-cred \
 `cloudflared` runs inside the cluster and targets the API Service using Kubernetes service DNS:
 
 - **Internal service URL**: `http://api.context-alarm.svc.cluster.local:80`
+- **Internal service URL**: `http://ui.context-alarm.svc.cluster.local:80`
 
 This URL is deterministic:
 `http://<service-name>.<namespace>.svc.cluster.local:<service-port>`
