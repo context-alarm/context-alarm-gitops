@@ -22,6 +22,9 @@ spec:
             - --url=http://api.context-alarm.svc.cluster.local:80
             - run
             - context-alarm-api
+          env:
+            - name: TUNNEL_CRED_FILE
+              value: /etc/cloudflared/credentials.json
           volumeMounts:
             - name: tunnel-cred
               mountPath: /etc/cloudflared
