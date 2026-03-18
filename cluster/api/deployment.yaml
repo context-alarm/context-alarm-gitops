@@ -13,6 +13,8 @@ spec:
       labels:
         app: api
     spec:
+      imagePullSecrets:
+        - name: ghcr-cred
       containers:
         - name: api
           image: ghcr.io/context-alarm/context-alarm-backend:latest
