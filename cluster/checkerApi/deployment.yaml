@@ -19,7 +19,7 @@ spec:
         - name: ghcr-cred
       containers:
         - name: checker-api
-          image: ghcr.io/context-alarm/context-alarm-trigger:cbdcebf60eafba60f060ce1c9b9eee29ed6882d9
+          image: ghcr.io/context-alarm/context-alarm-trigger:c4d7aaf45fc808ff99365a4e5bbad399a1f4fcb5
           imagePullPolicy: IfNotPresent
           envFrom:
             - secretRef:
