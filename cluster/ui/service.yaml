@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ui
+  namespace: context-alarm
+spec:
+  selector:
+    app: ui
+  ports:
+    - name: http
+      port: 80
+      targetPort: 3000
+      protocol: TCP

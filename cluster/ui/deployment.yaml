@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ui
+  namespace: context-alarm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ui
+  template:
+    metadata:
+      labels:
+        app: ui
+      annotations:
+        context-alarm.dev/dummy-rollout: "2026-03-18T00:00:00Z"
+    spec:
+      imagePullSecrets:
+        - name: ghcr-cred
+      containers:
+        - name: ui
+          image: ghcr.io/context-alarm/context-alarm-frontend:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000

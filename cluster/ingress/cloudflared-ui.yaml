@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloudflared-ui
+  namespace: context-alarm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cloudflared-ui
+  template:
+    metadata:
+      labels:
+        app: cloudflared-ui
+    spec:
+      containers:
+        - name: cloudflared
+          image: cloudflare/cloudflared:latest
+          args:
+            - tunnel
+            - --no-autoupdate
+            - --url=http://ui.context-alarm.svc.cluster.local:80
+            - run
+            - context-alarm-ui
+          env:
+            - name: TUNNEL_CRED_FILE
+              value: /etc/cloudflared/credentials.json
+          volumeMounts:
+            - name: tunnel-cred
+              mountPath: /etc/cloudflared
+              readOnly: true
+      volumes:
+        - name: tunnel-cred
+          secret:
+            secretName: cloudflared-ui-tunnel-cred
