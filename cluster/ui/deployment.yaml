@@ -19,7 +19,7 @@ spec:
         - name: ghcr-cred
       containers:
         - name: ui
-          image: ghcr.io/context-alarm/context-alarm-front-end:a54b360758c94179210f2ee68a0033e568889dc0
+          image: ghcr.io/context-alarm/context-alarm-front-end:1c35e5e9f9d2d9c51ee9427765740d9155cdf1a1
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
