@@ -56,9 +56,26 @@ kubectl create secret generic api-secret \
 
 3. Commit + push the updated `cluster/api/sealed-api-secret.yaml`
 4. Argo CD syncs it and the SealedSecrets controller updates `Secret/api-secret`
+5. Reloader automatically rolls `api` and `checker-api` Deployments when `api-secret` changes
 
 If your `.env` path contains spaces, quote it:
 `--from-env-file="/path/with spaces/.env"`
+
+### Auto-rollout on secret changes (Reloader)
+
+`cluster/api/deployment.yaml` and `cluster/checkerApi/deployment.yaml` include Reloader annotations so pods restart automatically when `Secret/api-secret` changes.
+
+Install Reloader once in the cluster:
+
+```bash
+kubectl apply -f https://raw.githubusercontent.com/stakater/Reloader/master/deployments/kubernetes/reloader.yaml
+```
+
+Verify Reloader is running:
+
+```bash
+kubectl -n reloader get deploy,pods
+```
 
 ### Private GHCR images (imagePullSecret)
 
